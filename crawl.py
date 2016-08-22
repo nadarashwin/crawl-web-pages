@@ -11,22 +11,21 @@ class AppCrawler:
 		self.current_depth = 0
 		self.depth_links = []
 		self.apps = []
-		self.unique_apps = set(self.apps)
 
 	def crawl(self):
-		game = self.get_app_from_link(self.starting_url)
-		self.apps.append(game)
-		self.depth_links.append(game.links)
+		game = self.get_app_from_link(self.starting_url) ##created an object for def "get_app_from_link"
+		self.apps.append(game) ## will show the info defined in "get_app_from_link" with url passed
+		self.depth_links.append(game.links) ## will show the links which was found from the OG url
 		# print game.links
 		# print self.depth_links
 
-		while self.current_depth < self.depth:
-			current_links = []
+		while self.current_depth < self.depth:  ## defining the depth
+			current_links = []  
 			for link in self.depth_links[self.current_depth]:
-				current_app = self.get_app_from_link(link)
+				current_app = self.get_app_from_link(link) ##created an object for def "get_app_from_link"
 				current_links.extend(current_app.links)
 				self.apps.append(current_app)
-				time.sleep(5)
+				time.sleep(5)    ####sleep time as most websites might block our get request  due to the threshold setup at server end
 			self.current_depth += 1
 			self.depth_links.append(current_links)
 		
@@ -50,7 +49,6 @@ class AppCrawler:
 		return app
 #		self.apps.append(app)
 
-
 class App:
 
 	def __init__(self, name, developer, price, links):
@@ -65,7 +63,7 @@ class App:
         "\r\nDeveloper: " + self.developer.encode('UTF-8') + 
         "\r\nPrice: " + self.price.encode('UTF-8') + "\r\n")
 
-crawler = AppCrawler("https://itunes.apple.com/us/app/candy-crush-saga/id553834731", 0)
+crawler = AppCrawler("https://itunes.apple.com/us/app/candy-crush-saga/id553834731", 0) ##if argument is greater than 0 while loop will take place 
 crawler.crawl()
 
 for app in crawler.apps:
