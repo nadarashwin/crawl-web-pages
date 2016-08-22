@@ -1,0 +1,6 @@
+just a normal python script to crawl a webpage. (itunes example)
+this scripts does not use any crawling module, just something to practice upon
+
+crawl_back.py :- A normal one wiothout any customization
+
+crawl.py :- Some additional functions to deal with sub-links
